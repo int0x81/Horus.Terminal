@@ -4,6 +4,6 @@ namespace Horus.Terminal
 {
     interface IPositionReceiver
     {
-        Task ReceivePositions(Action<IEnumerable<ClosedPosition>> on_receive, CancellationToken token);
+        Task ReceivePositions(Action<ClosedPosition> on_receive, CancellationToken token);
     }
 }

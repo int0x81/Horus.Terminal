@@ -4,10 +4,10 @@ namespace Horus.Terminal.Models
     {
         readonly Random rand = new();
 
-        readonly double _amount;
-        readonly double _price_orientation;
-        readonly double _lower_bound;
-        readonly double _upper_bound;
+        readonly double fixed_amount;
+        readonly double max_range;
+        readonly double lower_bound;
+        readonly double upper_bound;
         
 
         readonly string exchange_name;
@@ -20,28 +20,30 @@ namespace Horus.Terminal.Models
         internal MockExchangeStream(string exchange, string quote, 
             string currency, double start_price, double amount)
         {
-            _amount = amount;
-            _price_orientation = start_price;
-            _lower_bound = start_price * 0.5;
-            _upper_bound = start_price * 1.5;
+            fixed_amount = amount;
+            max_range = start_price * 0.005;
+            lower_bound = start_price * 0.5;
+            upper_bound = start_price * 1.5;
             exchange_name = exchange;
             quote_name = quote;
             currency_name = currency;
             last_buy_date = DateTime.UtcNow;
             last_buy_in = start_price;
+            current_price = start_price;
         }
 
         internal void NextTick()
         {
-            var price_change = rand.NextDouble() * (_price_orientation * 0.005);
-            price_change += price_change * 1.5 - price_change;
+            var level = rand.NextDouble();
+            var direction = rand.NextDouble() < 0.5;
+            var price_change = direction ? level * max_range : level * max_range * -1;
 
             current_price += price_change;
 
-            if (current_price < _lower_bound)
+            if (current_price < lower_bound)
                 current_price += Math.Abs(price_change * 1.5);
 
-            if (current_price > _upper_bound)
+            if (current_price > upper_bound)
                 current_price += price_change * -1.5;
 
         }
@@ -56,7 +58,7 @@ namespace Horus.Terminal.Models
                 Currency = currency_name,
                 DateOfBuy = last_buy_date,
                 DateOfSell = now,
-                Amount = _amount,
+                Amount = fixed_amount,
                 BuyPrice = last_buy_in,
                 SellPrice = current_price
             };

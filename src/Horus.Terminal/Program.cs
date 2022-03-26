@@ -1,7 +1,10 @@
 ﻿using Horus.Terminal;
 using Horus.Terminal.Models;
 
-ushort[] COLUMN_WIDTHS = new ushort[8] { 12, 8, 13, 13, 20, 20, 16, 2 };
+ushort[] COLUMN_WIDTHS = new ushort[8] { 18, 12, 18, 18, 20, 20, 16, 4 };
+const ushort AMOUNT_COLUMNS = 30; 
+
+Queue<ClosedPosition> positions = new();
 
 static void WriteColor(string message, ConsoleColor color)
 {
@@ -10,7 +13,7 @@ static void WriteColor(string message, ConsoleColor color)
     Console.ResetColor();
 }
 
-static void RenderColumn(string text, ushort width, ConsoleColor color = ConsoleColor.White, bool padding_right = true)
+static void RenderColumn(string text, ushort width, ConsoleColor color = ConsoleColor.White, bool padding_right = false)
 {
     string aligned;
 
@@ -77,6 +80,12 @@ static string CreateHoldingTimeDisplay(TimeSpan span)
     return "< 1 second";
 }
 
+string RenderCurrencyName(string currency_name)
+{
+    const ushort CURRENCY_NAME_MAX_LENGTH = 4;
+    return currency_name.PadLeft(CURRENCY_NAME_MAX_LENGTH);
+}
+
 void DisplayHeader()
 {
     RenderColumn("Exchange", COLUMN_WIDTHS[0]);
@@ -106,27 +115,34 @@ void DisplayClosedPosition(ClosedPosition position)
 
     RenderColumn(position.ExchangeName, COLUMN_WIDTHS[0]);
     RenderColumn(position.QuoteName, COLUMN_WIDTHS[1]);
-    RenderColumn($"{Round(position.BuyPrice)} {position.Currency}", COLUMN_WIDTHS[2]);
-    RenderColumn($"{Round(position.SellPrice)} {position.Currency}", COLUMN_WIDTHS[3]);
-    RenderColumn($"{indicators.Item1} {Round(absolute_return)} {position.Currency}", COLUMN_WIDTHS[4], indicators.Item2);
-    RenderColumn($"{indicators.Item1} {Round(relative_return * 100)}%", COLUMN_WIDTHS[5], indicators.Item2);
+    RenderColumn($"{Round(position.BuyPrice)} {RenderCurrencyName(position.Currency)}", COLUMN_WIDTHS[2]);
+    RenderColumn($"{Round(position.SellPrice)} {RenderCurrencyName(position.Currency)}", COLUMN_WIDTHS[3]);
+    RenderColumn($"{Round(absolute_return)} {RenderCurrencyName(position.Currency)} {indicators.Item1}", COLUMN_WIDTHS[4], indicators.Item2);
+    RenderColumn($"{Round(relative_return * 100)}% {indicators.Item1}", COLUMN_WIDTHS[5], indicators.Item2);
     RenderColumn($"{holding_time}", COLUMN_WIDTHS[6]);
     RenderColumn(indicators.Item3, COLUMN_WIDTHS[7]);
     Console.WriteLine();
 }
 
-void DisplayClosedPositions(IEnumerable<ClosedPosition> positions)
+void RenderTable(ClosedPosition new_position)
 {
     Console.Clear();
     DisplayHeader();
+
+    positions.Enqueue(new_position);
+
+    if (positions.Count > AMOUNT_COLUMNS)
+        positions.Dequeue();
 
     foreach(var pos in positions)
         DisplayClosedPosition(pos);
 }
 
+Console.OutputEncoding = System.Text.Encoding.Unicode;
+
 var receiver = new PositionMockReceiver();
 var token_source = new CancellationTokenSource();
-var task = receiver.ReceivePositions(DisplayClosedPositions, token_source.Token);
+var task = receiver.ReceivePositions(RenderTable, token_source.Token);
 
 Console.ReadKey();
 token_source.Cancel();
