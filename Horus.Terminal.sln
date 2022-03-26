@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horus.Terminal", "Horus.Terminal\Horus.Terminal.csproj", "{BBF8C42E-A57F-4499-AD7C-7A029A441FDB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{859E1B7D-FA68-4838-A755-4AFF13300362}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Horus.Terminal", "src\Horus.Terminal\Horus.Terminal.csproj", "{E69DB5AD-2D49-44FD-AC9B-BE95578D3BE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +13,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BBF8C42E-A57F-4499-AD7C-7A029A441FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBF8C42E-A57F-4499-AD7C-7A029A441FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBF8C42E-A57F-4499-AD7C-7A029A441FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBF8C42E-A57F-4499-AD7C-7A029A441FDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E69DB5AD-2D49-44FD-AC9B-BE95578D3BE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69DB5AD-2D49-44FD-AC9B-BE95578D3BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69DB5AD-2D49-44FD-AC9B-BE95578D3BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69DB5AD-2D49-44FD-AC9B-BE95578D3BE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E69DB5AD-2D49-44FD-AC9B-BE95578D3BE2} = {859E1B7D-FA68-4838-A755-4AFF13300362}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9EFC434C-FEE9-4706-8FCF-637BF1652CE3}
