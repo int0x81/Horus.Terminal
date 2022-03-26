@@ -25,18 +25,38 @@ namespace Horus.Terminal
             }, token);
         }
 
+        string[] FakeExchangeList = new string[10]
+        {
+            "EUREX",
+            "BINANCE FUTURES"
+        };
+
+        string[] FakeCryptoList = new string[10]
+        {
+            "BTC",
+            "ETH",
+            "CDN",
+            "KTZ",
+            "IOTA",
+        };
+
+        string[] FakeStockIndexList = new string[10]
+        {
+            "FDAX",
+        };
+
         ClosedPosition GenerateMockPosition()
         {
             return new ClosedPosition
             {
-                ExchangeName = "EUREX",
-                QuoteName = "FDAX",
+                ExchangeName = "BINANCE FUTURES",
+                QuoteName = "BTC",
                 Currency = "EUR",
                 BuyPrice = 78.547,
                 SellPrice = 83.652555,
-                Amount = 13,
+                Amount = 10,
                 DateOfBuy = DateTime.UtcNow.AddMinutes(-5),
-                DateOfSell = DateTime.UtcNow.AddSeconds(-2),
+                DateOfSell = DateTime.UtcNow,
             };
         }
     }
