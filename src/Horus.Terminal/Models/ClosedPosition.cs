@@ -8,6 +8,7 @@ namespace Horus.Terminal.Models
 {
     readonly struct ClosedPosition
     {
+        internal string AgentId { get; init; }
         internal string ExchangeName { get; init; }
         internal string QuoteName { get; init; }
         internal string Currency { get; init; }

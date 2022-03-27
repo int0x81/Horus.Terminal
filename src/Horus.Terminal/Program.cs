@@ -1,7 +1,7 @@
 ﻿using Horus.Terminal;
 using Horus.Terminal.Models;
 
-ushort[] COLUMN_WIDTHS = new ushort[8] { 18, 12, 18, 18, 20, 20, 16, 4 };
+ushort[] COLUMN_WIDTHS = new ushort[9] { 5, 18, 12, 18, 18, 20, 20, 16, 4 };
 const ushort AMOUNT_COLUMNS = 30; 
 
 Queue<ClosedPosition> positions = new();
@@ -88,14 +88,15 @@ string RenderCurrencyName(string currency_name)
 
 void DisplayHeader()
 {
-    RenderColumn("Exchange", COLUMN_WIDTHS[0]);
-    RenderColumn("Quote", COLUMN_WIDTHS[1]);
-    RenderColumn("Buy", COLUMN_WIDTHS[2]);
-    RenderColumn("Sell", COLUMN_WIDTHS[3]);
-    RenderColumn("Absolute Return", COLUMN_WIDTHS[4]);
-    RenderColumn("Relative Return", COLUMN_WIDTHS[5]);
-    RenderColumn("Holding Time", COLUMN_WIDTHS[6]);
-    RenderColumn("", COLUMN_WIDTHS[7]);
+    RenderColumn("Agent", COLUMN_WIDTHS[0]);
+    RenderColumn("Exchange", COLUMN_WIDTHS[1]);
+    RenderColumn("Quote", COLUMN_WIDTHS[2]);
+    RenderColumn("Buy", COLUMN_WIDTHS[3]);
+    RenderColumn("Sell", COLUMN_WIDTHS[4]);
+    RenderColumn("Absolute Return", COLUMN_WIDTHS[5]);
+    RenderColumn("Relative Return", COLUMN_WIDTHS[6]);
+    RenderColumn("Holding Time", COLUMN_WIDTHS[7]);
+    RenderColumn("", COLUMN_WIDTHS[8]);
     Console.WriteLine();
     foreach (var col in COLUMN_WIDTHS)
     {
@@ -113,14 +114,15 @@ void DisplayClosedPosition(ClosedPosition position)
     var holding_time = CreateHoldingTimeDisplay(position.DateOfSell - position.DateOfBuy);
     var indicators = DefineIndicators(relative_return);
 
-    RenderColumn(position.ExchangeName, COLUMN_WIDTHS[0]);
-    RenderColumn(position.QuoteName, COLUMN_WIDTHS[1]);
-    RenderColumn($"{Round(position.BuyPrice)} {RenderCurrencyName(position.Currency)}", COLUMN_WIDTHS[2]);
-    RenderColumn($"{Round(position.SellPrice)} {RenderCurrencyName(position.Currency)}", COLUMN_WIDTHS[3]);
-    RenderColumn($"{Round(absolute_return)} {RenderCurrencyName(position.Currency)} {indicators.Item1}", COLUMN_WIDTHS[4], indicators.Item2);
-    RenderColumn($"{Round(relative_return * 100)}% {indicators.Item1}", COLUMN_WIDTHS[5], indicators.Item2);
-    RenderColumn($"{holding_time}", COLUMN_WIDTHS[6]);
-    RenderColumn(indicators.Item3, COLUMN_WIDTHS[7]);
+    RenderColumn($"#{position.AgentId}", COLUMN_WIDTHS[0]);
+    RenderColumn(position.ExchangeName, COLUMN_WIDTHS[1]);
+    RenderColumn(position.QuoteName, COLUMN_WIDTHS[2]);
+    RenderColumn($"{Round(position.BuyPrice)} {RenderCurrencyName(position.Currency)}", COLUMN_WIDTHS[3]);
+    RenderColumn($"{Round(position.SellPrice)} {RenderCurrencyName(position.Currency)}", COLUMN_WIDTHS[4]);
+    RenderColumn($"{Round(absolute_return)} {RenderCurrencyName(position.Currency)} {indicators.Item1}", COLUMN_WIDTHS[5], indicators.Item2);
+    RenderColumn($"{Round(relative_return * 100)}% {indicators.Item1}", COLUMN_WIDTHS[6], indicators.Item2);
+    RenderColumn($"{holding_time}", COLUMN_WIDTHS[7]);
+    RenderColumn(indicators.Item3, COLUMN_WIDTHS[8]);
     Console.WriteLine();
 }
 

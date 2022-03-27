@@ -4,11 +4,11 @@ namespace Horus.Terminal.Models
     {
         readonly Random rand = new();
 
+        readonly string agent_id = Guid.NewGuid().ToString().Substring(0,4);
         readonly double fixed_amount;
         readonly double max_range;
         readonly double lower_bound;
         readonly double upper_bound;
-        
 
         readonly string exchange_name;
         readonly string quote_name;
@@ -53,6 +53,7 @@ namespace Horus.Terminal.Models
             var now = DateTime.UtcNow;
             var closed_position = new ClosedPosition()
             {
+                AgentId = agent_id,
                 ExchangeName = exchange_name,
                 QuoteName = quote_name,
                 Currency = currency_name,
