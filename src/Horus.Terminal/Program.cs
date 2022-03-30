@@ -6,6 +6,12 @@ const ushort AMOUNT_ROWS = 30;
 
 Queue<ClosedPosition> positions = new();
 
+bool UseMocks()
+{
+    var arg = args.FirstOrDefault();
+    return arg != null && arg == "use-mocks";
+}
+
 static void WriteColor(string message, ConsoleColor color)
 {
     Console.ForegroundColor = color;
@@ -142,7 +148,13 @@ void RenderTable(ClosedPosition new_position)
 
 Console.OutputEncoding = System.Text.Encoding.Unicode;
 
-var receiver = new PositionMockReceiver();
+IPositionReceiver receiver;
+
+if(UseMocks())
+    receiver = new PositionMockReceiver();
+else
+    throw new NotImplementedException();
+
 var token_source = new CancellationTokenSource();
 var task = receiver.ReceivePositions(RenderTable, token_source.Token);
 
