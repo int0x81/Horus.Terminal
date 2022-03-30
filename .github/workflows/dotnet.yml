@@ -30,7 +30,7 @@ jobs:
       run: dotnet build
       
     - name: Publish
-      run: dotnet publish src/Horus.Terminal/Horus.Terminal.csproj -c Release -p:PublishSingleFile=true -p:DebugType=None
+      run: dotnet publish src/Horus.Terminal/Horus.Terminal.csproj -c Release -p:DebugType=None
     
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2.2.2
