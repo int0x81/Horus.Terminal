@@ -2,7 +2,7 @@
 using Horus.Terminal.Models;
 
 ushort[] COLUMN_WIDTHS = new ushort[9] { 5, 18, 12, 18, 18, 20, 20, 16, 4 };
-const ushort AMOUNT_COLUMNS = 30; 
+const ushort AMOUNT_ROWS = 30; 
 
 Queue<ClosedPosition> positions = new();
 
@@ -133,7 +133,7 @@ void RenderTable(ClosedPosition new_position)
 
     positions.Enqueue(new_position);
 
-    if (positions.Count > AMOUNT_COLUMNS)
+    if (positions.Count > AMOUNT_ROWS)
         positions.Dequeue();
 
     foreach(var pos in positions)
