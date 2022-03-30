@@ -1,3 +1,5 @@
+[![Build Release Version](https://github.com/int0x81/Horus.Terminal/actions/workflows/dotnet.yml/badge.svg)](https://github.com/int0x81/Horus.Terminal/actions/workflows/dotnet.yml)
+
 # Horus Terminal
 
 Impress girls and friends with our self written algorithmic trading bot!
