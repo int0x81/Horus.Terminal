@@ -1,10 +1,7 @@
 [![Build Release Version](https://github.com/int0x81/Horus.Terminal/actions/workflows/dotnet.yml/badge.svg)](https://github.com/int0x81/Horus.Terminal/actions/workflows/dotnet.yml)
-
 # Horus Terminal
 
-Impress girls and friends with our self written algorithmic trading bot!
-Start it, make it full screen and let it passivly run in your room to show of how badass
-genious you are. To the MOOOOON ༼ つ ◕_◕ ༽つ
+Impress girls and friends with your self-written algorithmic trading bot! Start it, make it full screen and let it passively run in your room to show how badass genius you are. To the MOOOOON ༼ つ ◕_◕ ༽つ
 
 ![product-demo](https://github.com/int0x81/Horus.Terminal/blob/main/docs/demo.png)
 
