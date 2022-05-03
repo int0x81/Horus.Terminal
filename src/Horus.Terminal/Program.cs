@@ -153,7 +153,7 @@ IPositionReceiver receiver;
 if(UseMocks())
     receiver = new PositionMockReceiver();
 else
-    throw new NotImplementedException();
+    receiver = new PositionReceiver();
 
 var token_source = new CancellationTokenSource();
 var task = receiver.ReceivePositions(RenderTable, token_source.Token);
